@@ -9,41 +9,75 @@ public class WorkMonth {
     private long requiredMinPerMonth;
 
     public WorkMonth(int year, int month) {
+        // TODO: remove <Workday>, since java7 you dont have to declare here
         this.days = new ArrayList<WorkDay>();
         this.date = YearMonth.of(year, month);
     }
+
     public List<WorkDay> getDays() {
         return days;
     }
+
     public YearMonth getDate() {
         return date;
     }
+
     public long getSumPerMonth() {
         return sumPerMonth;
     }
+
     public long getRequiredMinPerMonth() {
         return requiredMinPerMonth;
     }
-    public long getExtraMinPerMonth(){
+
+    public long getExtraMinPerMonth() {
         return sumPerMonth - requiredMinPerMonth;
     }
-    private boolean isNewDate(WorkDay workDay){
-        for (int i=0; i< days.size(); i++){
-            if(workDay == days.get(i)){
+
+    // TODO: fill comment
+    /**
+     *
+     * @param workDay
+     * @return
+     */
+    private boolean isNewDate(WorkDay workDay) {
+        for (int i = 0; i < days.size(); i++) {
+            if (workDay == days.get(i)) {
                 return false;
             }
-        }return true;
+        }
+        return true;
     }
-    private boolean isSameMonth(WorkDay workDay){
+
+    // TODO: fill comment
+    /**
+     *
+     * @param workDay
+     * @return
+     */
+    private boolean isSameMonth(WorkDay workDay) {
         return (workDay.getActualDay().getMonth().equals(this.date.getMonth()) &&
-            workDay.getActualDay().getYear() == this.date.getYear());
+                workDay.getActualDay().getYear() == this.date.getYear());
     }
-    public void addWorkDay(WorkDay wd, boolean isWeekendEnabled){
+
+    // TODO: fill comment
+    /**
+     *
+     * @param wd
+     * @param isWeekendEnabled
+     */
+    public void addWorkDay(WorkDay wd, boolean isWeekendEnabled) {
         if (isWeekendEnabled && isSameMonth(wd) && isNewDate(wd)) {
             days.add(wd);
         }
     }
-    public void addWorkDay(WorkDay wd){
+
+    // TODO: fill comment
+    /**
+     *
+     * @param wd
+     */
+    public void addWorkDay(WorkDay wd) {
         if (wd.isWeekday() && isSameMonth(wd) && isNewDate(wd)) {
             days.add(wd);
         }
